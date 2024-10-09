@@ -1,23 +1,22 @@
-# -*- coding: utf-8 -*-
 import unittest
 from gilded_rose import Item, GildedRose
 
 class GildedRoseTest(unittest.TestCase):
     def test_item_quality_never_more_than_fifty(self):
         # Creating an item with quality at 50
-        items = [Item("orange", 4, 50)]
+        items = [Item("Aged Brie", 4, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         # Assert that the quality is never more than 50  after updating
-        self.assertTrue(items[0].quality == 50, "Item quality is never more than 50.")
+        self.assertEqual(items[0].quality, 50, "Item quality is never more than 50.")
 
     def test_item_sulfuras_never_sold(self):
         # Creating an item with quality at 50
-        items = [Item("Sulfuras", 2, 2)]
+        items = [Item("Sulfuras, Hand of Ragnaros", 2, 2)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         # Assert that the item sulfuras is never sold.
-        self.assertTrue(items[0].quality == 2, "Sulfuras is never sold .")
+        self.assertEqual(items[0].quality, 2, "Sulfuras is never sold .")
 
     def test_conjured_items_degrade_twice_as_fast(self):
         # Setting up a normal item and a conjured item with the same initial quality and sell_in values
@@ -26,10 +25,8 @@ class GildedRoseTest(unittest.TestCase):
             Item("Conjured", 10, 20)  # Assuming we identify "Conjured" items by their name
         ]
         gilded_rose = GildedRose(items)
-
         # Update quality for 1 day
         gilded_rose.update_quality()
-
         # Calculate the quality degradation for both items
         bread_degradation = 20 - items[0].quality
         conjured_degradation = 20 - items[1].quality
